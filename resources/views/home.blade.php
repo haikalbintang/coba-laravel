@@ -18,11 +18,11 @@
           <p><span class="text-red-500 text-xl">#</span> Baru</p>
           <p><span class="text-red-500 text-xl">#</span> Bekas</p>
         </div>
-        <h2 class="text-lg pt-2">Gender</h2>
+        <h2 class="text-lg pt-2"><span class="text-gray-700 text-2xl">#</span> Gender</h2>
         <div class="text-gray-100 pl-4">
-          <p>Pria</p>
-          <p>Wanita</p>
-          <p>Unisex</p>
+          <p><span class="text-gray-700 text-xl">#</span> Pria</p>
+          <p><span class="text-gray-700 text-xl">#</span> Wanita</p>
+          <p><span class="text-gray-700 text-xl">#</span> Unisex</p>
         </div>
         <h2 class="text-lg pt-2">Kategori</h2>
         <div class="text-gray-100 pl-4">
