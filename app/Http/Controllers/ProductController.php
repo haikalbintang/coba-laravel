@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('home', [
-            'products' => Product::all()
+            'products' => Product::latest()->paginate(12),
         ]);
     }
 
@@ -28,9 +30,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        $product = Product::create($data);
+        return redirect(route('products.show', ['product' => $product->id]))->with('success', 'Product created successfully');
     }
 
     /**
@@ -38,8 +42,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product-detail', [
-            'product' => $product
+        return view('show', [
+            'product' => $product,
         ]);
     }
 
@@ -48,15 +52,19 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('edit', [
+            'product' => $product,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        $product->update($data);
+        return redirect(route('products.show', ['product' => $product->id]))->with('success', 'Product updated successfully');
     }
 
     /**

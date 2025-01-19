@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->integer('price');
             $table->string('image');
+            $table->boolean('is_sold')->default(false);
             $table->timestamps();
         });
     }

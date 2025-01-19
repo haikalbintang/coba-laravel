@@ -1,0 +1,1 @@
+<h2 class="text-lg pt-2"><span class="text-red-500 text-2xl">#</span> {{ $slot }}</h2>
