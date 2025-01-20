@@ -33,13 +33,13 @@ Route::put('/product/{product}', [ProductController::class, 'update'])->name('pr
 // DELETE /product/{product}
 Route::delete('/product/{product}', function (Product $product) {
     $product->delete();
-    return redirect(route('products.index'))->with('success', 'Product deleted successfully');
+    return redirect(route('products.index'))->with('success', 'Barang berhasil dihapus.');
 })->name('products.destroy');
 
 
 Route::put('/product/{product}/toggle-sold', function (Product $product) {
     $product->toggleSold();
-    return redirect()->back()->with('success','Status barang berhasil diubah');
+    return redirect()->back()->with('success','Status barang berhasil diubah.');
 })->name('products.toggle-sold');
 
 

@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use Faker\Factory as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -16,12 +18,17 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = Faker::create('id_ID');
+        $createdAt = $faker->dateTimeBetween('-1 month', 'now');
         return [
-            "name" => fake()->domainName(),
-            "description" => fake()->text(),
-            "price" => fake()->randomNumber(6),
-            "image" => fake()->imageUrl(200, 200),
-            "is_sold" => fake()->boolean(false),
+            "name" => ucwords($faker->word() ." ". $faker->word() . " " . $faker->word()),
+            "description" => $faker->text(),
+            "price" => $faker->randomNumber(6),
+            "image" => $faker->imageUrl(200, 200),
+            "is_sold" => $faker->boolean(false),
+            "user_id" => User::inRandomOrder()->first()->id,
+            "created_at" => $createdAt,
+            "updated_at" => $faker->dateTimeBetween($createdAt, 'now'),
         ];
     }
 }

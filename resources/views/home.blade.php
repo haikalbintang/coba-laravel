@@ -8,11 +8,14 @@
 
 @section('content')
   <x-greet></x-greet>
-  <x-header><span class="text-3xl text-gray-100">Welcome to</span> <span class="font-bold">Toko Laravel</span>! <span class="text-2xl text-gray-100">Tempat jual beli barang bekas.</span></x-header>
+  <x-header><span class="text-2xl text-gray-100">Welcome to</span> <span class="font-bold text-3xl">Toko Laravel</span>! <span class="text-2xl text-gray-100">Tempat jual beli barang bekas.</span></x-header>
 
   <div class="flex justify-between mx-4 mb-6 mt-3">
-    <a href="/products/create" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded text-lg">+ Jual Barang</a>
-    <input class="rounded" type="text" placeholder="Cari Barang...">
+    <a href="/products/create" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded text-base">+ Jual Barang</a>
+    <form action="">
+      <input class="rounded bg-gray-300 focus:bg-gray-50 text-gray-900" type="text" placeholder="Cari Barang...">
+      <button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-3 rounded">Cari</button>
+    </form>
   </div>
 
   <div class="grid grid-cols-3 gap-3">
@@ -23,7 +26,13 @@
         <h2 class="text-xl font-bold p-2 text-white">{{ $product->name }}</h2>
         <p class="text-base p-2 text-gray-200">{{ Str::limit($product->description, 55) }} <span class="text-purple-500 hover:underline"><a href={{ route('products.show', ['product' => $product->id]) }}>lihat detail &raquo;</a></span></p>
         <h3 class="mt-auto text-2xl font-bold p-2 text-white text-right">Rp {{ number_format($product->price, 0, ',', '.') }}</h3>
-        <p @class(['text-green-600' => !$product->is_sold, 'text-gray-400' => $product->is_sold])>{{ $product->is_sold ? 'Sudah Terjual' : 'Stok Tersedia' }}</p>
+        <div class="flex justify-between items-center px-2">
+          <p @class(['text-green-600' => !$product->is_sold, 'text-gray-400' => $product->is_sold])>{{ $product->is_sold ? 'Sudah Terjual' : 'Stok Tersedia' }}</p>
+          <div class="flex items-center space-x-1.5">
+            <x-comment-icon></x-comment-icon>
+            <p>{{ $product->comments_count }}</p>
+          </div>
+        </div>
       </div>
     @empty
       <p>Tidak ada barang.</p>
@@ -31,6 +40,8 @@
   </div>
 
   @if ($products->count() > 0)
-    {{ $products->links() }}
+    <div class="p-2 mb-4">
+      {{ $products->links() }}
+    </div>
   @endif
 @endsection

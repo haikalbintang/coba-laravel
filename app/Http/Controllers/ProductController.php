@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('home', [
-            'products' => Product::latest()->paginate(12),
+            'products' => Product::withCount('comments')->latest()->paginate(12),
         ]);
     }
 
@@ -34,7 +34,7 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $product = Product::create($data);
-        return redirect(route('products.show', ['product' => $product->id]))->with('success', 'Product created successfully');
+        return redirect(route('products.show', ['product' => $product->id]))->with('success', 'Barang berhasil ditambahkan.');
     }
 
     /**
@@ -42,6 +42,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->load('comments');
         return view('show', [
             'product' => $product,
         ]);
@@ -64,7 +65,7 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $product->update($data);
-        return redirect(route('products.show', ['product' => $product->id]))->with('success', 'Product updated successfully');
+        return redirect(route('products.show', ['product' => $product->id]))->with('success', 'Barang berhasil diubah.');
     }
 
     /**
