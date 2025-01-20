@@ -13,24 +13,24 @@
       @endisset
       <div class="grid grid-cols-2 gap-10">
         <div class="space-y-2">
-          <div>
-            <label class="block" for="name">Nama barang</label>
+          <div class="space-y-1">
+            <label class="block font-medium" for="name">Nama barang<span class="text-red-500">*</span></label>
             <input class="w-full shadow-sm appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" id="name" value="{{ $product->name ?? old('name') }}">
             @error('name')
               <p class="text-red-400">{{ $message }}</p>
             @enderror
           </div>
       
-          <div>
-            <label class="block" for="description">Deskripsi</label>
+          <div class="space-y-1">
+            <label class="block font-medium" for="description">Deskripsi<span class="text-red-500">*</span></label>
             <textarea class="w-full shadow-sm appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="10" type="text" name="description" id="description">{{ $product->description ?? old('description') }}</textarea>
             @error('description')
             <p class="text-red-500">{{ $message }}</p>
           @enderror
           </div>
       
-          <div>
-            <label class="block" for="price">Harga</label>
+          <div class="space-y-1">
+            <label class="block font-medium" for="price">Harga<span class="text-red-500">*</span></label>
             <input class="w-full shadow-sm appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" name="price" id="price" value="{{ $product->price ?? old('price') }}">
             @error('price')
             <p class="text-red-500">{{ $message }}</p>
@@ -39,11 +39,13 @@
         </div>
         
         <div>
-          <label class="block" for="image">Gambar</label>
-          <input type="file" name="image" id="image">
-          @error('image')
-          <p class="text-red-500">{{ $message }}</p>
-          @enderror
+          <div class="space-y-1">
+            <label class="block font-medium" for="image">Gambar<span class="text-red-500">*</span></label>
+            <input type="file" name="image" id="image">
+            @error('image')
+            <p class="text-red-500">{{ $message }}</p>
+            @enderror
+          </div>
 
           <button class="mt-10 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" type="submit">{{ isset($product) ? 'Edit Spesifikasi Barang' : 'Tambahkan Barang' }}</button>
         </div>

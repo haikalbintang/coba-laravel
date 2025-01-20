@@ -3,6 +3,7 @@
 use App\Models\Product;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChirpController;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -15,26 +16,23 @@ Route::get('/products', function () {
     return redirect(route('products.index'));
 });
 
-// EDIT /product/{product}/edit
-Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-
-// SHOW /product/{product}
-Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
-
 // CREATE /product
 Route::view('/products/create', 'create')->name('products.create');
 
 // STORE /products
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
-// PUT /product/{product}
+// SHOW /product/{product}
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// EDIT /product/{product}/edit
+Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+
+// UPDATE /product/{product}
 Route::put('/product/{product}', [ProductController::class, 'update'])->name('products.update');
 
-// DELETE /product/{product}
-Route::delete('/product/{product}', function (Product $product) {
-    $product->delete();
-    return redirect(route('products.index'))->with('success', 'Barang berhasil dihapus.');
-})->name('products.destroy');
+// DESTROY /product/{product}
+Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 
 Route::put('/product/{product}/toggle-sold', function (Product $product) {
@@ -43,6 +41,8 @@ Route::put('/product/{product}/toggle-sold', function (Product $product) {
 })->name('products.toggle-sold');
 
 
+// INDEX /chirps
+Route::get('/chirps', [ChirpController::class, 'index'])->name('chirps.index');
 
 
 

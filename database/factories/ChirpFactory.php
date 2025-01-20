@@ -8,9 +8,9 @@ use App\Models\User;
 use Faker\Factory as Faker;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chirp>
  */
-class CommentFactory extends Factory
+class ChirpFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,8 +23,7 @@ class CommentFactory extends Factory
         $createdAt = $faker->dateTimeBetween('-1 month', 'now');
         return [
             'user_id' => User::factory(),
-            'product_id' => Product::factory(),
-            'text' => $faker->paragraph(),
+            'text' => $faker->text(255),
             'created_at' => $createdAt,
             'updated_at' => $faker->dateTimeBetween($createdAt, 'now'),
         ];

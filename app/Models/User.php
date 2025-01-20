@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function chirps(): HasMany
+    {
+        return $this->hasMany(Chirp::class);
+    }
 }

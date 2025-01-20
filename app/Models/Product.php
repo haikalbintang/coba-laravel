@@ -40,4 +40,19 @@ class Product extends Model
     {
         return $query->where('name', 'like', "%$name%");
     }
+
+    public function scopePopular(Builder $query): Builder
+    {
+        return $query->withCount('comments')->orderBy('comments_count', 'desc');
+    }
+    
+    public function scopeHighestPrice(Builder $query): Builder
+    {
+        return $query->orderBy('price', 'desc');
+    }
+
+    public function scopeLowestPrice(Builder $query): Builder
+    {
+        return $query->orderBy('price', 'asc');
+    }
 }

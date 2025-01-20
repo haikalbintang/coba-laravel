@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('image');
             $table->boolean('is_sold')->default(false);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->default(1)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
