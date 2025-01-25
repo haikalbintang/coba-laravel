@@ -24,7 +24,7 @@ class CommentFactory extends Factory
         return [
             'user_id' => User::factory(),
             'product_id' => Product::factory(),
-            'text' => $faker->paragraph(),
+            'text' => $faker->text(255),
             'created_at' => $createdAt,
             'updated_at' => $faker->dateTimeBetween($createdAt, 'now'),
         ];

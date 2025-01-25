@@ -1,18 +1,28 @@
 <x-logo></x-logo>
-      <div class="pt-[120px] max-w-56 leading-7 tracking-wide font-medium">
-        <x-category1>Status</x-category1>
-        <div class="text-gray-100 pl-4">
-          <x-category2>Baru</x-category2>
-          <x-category2>Bekas</x-category2>
-        </div>
+      <div class="pt-[120px] max-w-56 leading-7 tracking-wide font-normal text-gray-200">
+        @php
+          $stocks = [
+            '' => 'Semua',
+            'available' => 'Tersedia',
+            'sold' => 'Terjual'
+      ];
+          $currentStock = request('stock', '');
+        @endphp
+        <x-category1>Stok</x-category1>
+        <x-stock-list :stocks="$stocks" :current-stock="$currentStock"></x-stock-list>
+        {{-- <x-category1>Status</x-category1>
+        <div class="text-gray-200 pl-4">
+          <x-category2><a href="{{ route('products.index', ['status' => 'baru']) }}" class="{{ request('status') == 'baru' ? 'text-white font-bold' : '' }}">Baru</a></x-category2>
+          <x-category2><a href="{{ route('products.index', ['status' => 'bekas']) }}" class="{{ request('status') == 'bekas' ? 'text-white font-bold' : '' }}">Bekas</a></x-category2>
+        </div> --}}
         <h2 class="text-lg pt-2"><span class="text-gray-700 text-2xl">#</span> Gender</h2>
-        <div class="text-gray-100 pl-4">
+        <div class="text-gray-200 pl-4">
           <p><span class="text-gray-700 text-xl">#</span> Pria</p>
           <p><span class="text-gray-700 text-xl">#</span> Wanita</p>
           <p><span class="text-gray-700 text-xl">#</span> Unisex</p>
         </div>
         <h2 class="text-lg pt-2">Kategori</h2>
-        <div class="text-gray-100 pl-4">
+        <div class="text-gray-200 pl-4">
           <p>Tas</p>
           <p>Baju</p>
           <p>Celana</p>
@@ -35,6 +45,10 @@
           <p>Baru</p>
           <p>Bekas</p>
         </div>
-        <p class="pt-32 text-base text-gray-300"><span class="text-red-500 text-lg">WA</span><span class="text-purple-500 text-lg">:</span> +6287877901515</p>
-        <p class="pt-2 pb-8 text-base text-gray-300"><span class="text-red-500 text-lg">Lokasi</span><span class="text-purple-500 text-lg">:</span> Jl. KH Abdurrahman No. 15, RT 01/01, Pondok Jaya, Cipayung, Depok</p>
+        <p class="pt-32 text-base text-gray-100"><span class="text-red-500 text-lg font-semibold">WA</span><span class="text-purple-500 text-lg"></span> +6287877901515</p>
+        <p class="pt-2 pb-8 text-base text-gray-100"><span class="text-red-500 text-lg font-semibold">Lokasi</span><span class="text-purple-500 text-lg"></span> Jl. KH Abdurrahman No. 15, RT 01/01, Pondok Jaya, Cipayung, Depok</p>
+
+        <div class="text-sm py-8 pl-1.5">
+          <p class="text-gray-100">&copy; {{ date('Y') }} <span class="text-gray-400">by</span> <span class="text-red-500 font-bold text-[16px]">Toko Laravel</span></p>
+        </div>
       </div>

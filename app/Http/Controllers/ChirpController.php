@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chirp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChirpController extends Controller
 {
@@ -12,8 +13,9 @@ class ChirpController extends Controller
      */
     public function index()
     {
+        $chirps = Chirp::whereNull('parent_id')->with('replies', 'user')->latest()->paginate(10);
         return view('chirps.index', [
-            'chirps' => Chirp::with('user')->latest()->paginate(10),
+            'chirps' => $chirps,
         ]);
     }
 
@@ -30,7 +32,13 @@ class ChirpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'text' => ['required', 'string', 'max:255'],
+            'parent_id' => ['nullable', 'exists:chirps,id']
+        ]);
+        $data['user_id'] = Auth::id();
+        Chirp::create($data);
+        return redirect()->back();
     }
 
     /**
@@ -38,7 +46,11 @@ class ChirpController extends Controller
      */
     public function show(Chirp $chirp)
     {
-        //
+        $chirps = Chirp::whereNull('parent_id')->with('replies', 'user')->latest()->paginate(10);
+        return view('chirps.show', [
+            'chirp' => $chirp,
+            'chirps' => $chirps
+        ]);
     }
 
     /**

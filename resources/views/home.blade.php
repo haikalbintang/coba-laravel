@@ -7,14 +7,21 @@
 @endsection
 
 @section('content')
-  <x-greet></x-greet>
+  @auth
+    <x-header>Halo, {{ auth()->user()->name }}!</x-header>
+  @endauth
   <x-header><span class="text-2xl text-gray-100">Welcome to</span> <span class="font-bold text-3xl">Toko Laravel</span>! <span class="text-2xl text-gray-100">Tempat jual beli barang bekas.</span></x-header>
 
-  <div class="flex justify-between mx-4 mb-6 mt-3">
+  <div class="flex justify-between mx-2.5 mb-6 mt-3">
     <a href="/products/create" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded text-base">+ Jual Barang</a>
-    <form action="">
-      <input class="rounded bg-gray-300 focus:bg-gray-50 text-gray-900" type="text" placeholder="Cari Barang...">
-      <button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-3 rounded">Cari</button>
+    <form action="{{ route('products.index') }}" method="GET">
+      {{-- @csrf --}}
+      @if (request('name'))
+      <a class=" bg-transparent text-white font-bold py-2 px-3 rounded" href="{{ route('products.index') }}">Reset</a>
+      @endif
+      <input type="hidden" name="stock" value="{{ request('stock') }}">
+      <input class="rounded bg-gray-300 focus:bg-gray-50 text-gray-900" type="text" name="name" placeholder="Cari Barang..." value="{{ request('name') }}">
+      <button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-3 rounded" type="submit">Cari</button>
     </form>
   </div>
 
@@ -35,7 +42,9 @@
         </div>
       </div>
     @empty
+    <div class="m-2 p-4 text-center bg-gray-800 rounded-lg col-span-3 text-gray-300">
       <p>Tidak ada barang.</p>
+    </div>
     @endforelse
   </div>
 

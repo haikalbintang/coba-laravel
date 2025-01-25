@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class Product extends Model
 {
@@ -17,6 +18,7 @@ class Product extends Model
         'description',
         'price',
         'image',
+        'user_id'
     ];
 
     // protected $guarded = ['id'];
@@ -54,5 +56,15 @@ class Product extends Model
     public function scopeLowestPrice(Builder $query): Builder
     {
         return $query->orderBy('price', 'asc');
+    }
+
+    public function scopeOnStock(Builder $query): Builder|QueryBuilder
+    {
+        return $query->where('is_sold', false);
+    }
+
+    public function scopeOffStock(Builder $query): Builder|QueryBuilder
+    {
+        return $query->where('is_sold', true);
     }
 }

@@ -7,37 +7,39 @@
 @endsection
 
 @section('content')
-  <x-greet></x-greet>
-  
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mt-5">
     <x-header>{{ $product->name }}</x-header>
     
-    <div class="flex items-center space-x-4">
-      <div>
-        <a class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" href="{{ route('products.edit', ['product' => $product]) }}">Edit</a>
-      </div>
-
-      <div>
-        <form action="{{ route('products.toggle-sold', ['product' => $product]) }}" method="post">
-          @csrf
-          @method('put')
-          <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">{{ $product->is_sold ? 'Stok Ulang' : 'Sudah Terjual' }}</button>
-        </form>
-      </div>
-  
-      <div class="pr-4">
-        <form action="{{ route('products.destroy', ['product' => $product->id]) }}" method="post">
-          @csrf
-          @method('delete')
-          <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">Delete Barang</button>
-        </form>
-      </div>
-    </div>
+    @auth
+      @if (auth()->user()->id === $product->user_id)
+        <div class="flex items-center space-x-4">
+          <div>
+            <a class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" href="{{ route('products.edit', ['product' => $product]) }}">Edit</a>
+          </div>
+    
+          <div>
+            <form action="{{ route('products.toggle-sold', ['product' => $product]) }}" method="post">
+              @csrf
+              @method('put')
+              <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">{{ $product->is_sold ? 'Stok Ulang' : 'Sudah Terjual' }}</button>
+            </form>
+          </div>
+      
+          <div class="pr-4">
+            <form action="{{ route('products.destroy', ['product' => $product->id]) }}" method="post">
+              @csrf
+              @method('delete')
+              <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">Delete Barang</button>
+            </form>
+          </div>
+        </div>
+      @endif
+    @endauth
   </div>
 
   <div class="bg-gray-800 p-4 rounded-lg flex mb-4">
-    <img class="w-[430px] h-[430px]" src="https://picsum.photos/180/180/?random={{ $product->id }}" alt="{{ $product->name }}">
-    <div class="bg-gray-900 p-4 ml-4 text-lg w-full flex flex-col">
+    <img class="w-1/2 h-auto" src="https://picsum.photos/180/180/?random={{ $product->id }}" alt="{{ $product->name }}">
+    <div class="w-1/2 bg-gray-900 p-4 ml-4 text-lg flex flex-col">
       <p>Deskripsi: {{ $product->description }}</p>
       <p>Harga: Rp{{ number_format($product->price, 0, ',', '.') }}</p>
       <p>Status: {{ $product->is_sold ? 'Sudah Terjual' : 'Belum Terjual' }}</p>
@@ -77,7 +79,7 @@
     <div class="col-span-3">
       <x-header>Komentar:</x-header>
     
-      <div class="bg-gray-800 p-1 space-y-1 mb-8 rounded">
+      <div class="bg-gray-800 p-3 space-y-3 mb-8 rounded">
         @forelse ($product->comments as $comment)
           <div class="bg-gray-900 p-4 flex space-x-4">
             <img class="w-[70px] h-[70px] rounded-full p-1 bg-gray-800" src="https://picsum.photos/180/180/?random={{ $comment->user_id }}" alt="">
@@ -97,8 +99,21 @@
           <p class="text-center text-gray-400 text-sm">Belum ada komentar</p>
         @endforelse
       </div>
+
+      @guest
+    <div x-show="flash" class="flex items-center bg-yellow-200 border border-yellow-400 text-yellow-700 px-4 py-2 rounded-md mt-4 w-fit mb-8">
+      <span class="font-bold mr-1.5">Warning! Log in </span> untuk berkomentar.
+      <div class="ml-6 text-yellow-700 cursor-pointer">
+        <svg @click="flash = false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="#a16207" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="#a16207" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>              
+      </div>
+    </div>
+  @endguest
       
-      <div class="bg-gray-800 p-2 pl-5 mb-2 rounded-lg flex items-center space-x-4">
+      @auth
+      <div class="bg-gray-800 p-3 pl-5 mb-2 rounded-lg flex items-center space-x-4">
         <img class="w-[70px] h-[70px] rounded-full p-1 bg-gray-900" src="https://picsum.photos/180/180/?random=99" alt="">
         <textarea name="comment" id="" rows="3" class="shadow-sm appearance-none border text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full bg-gray-200 p-2.5 rounded-lg placeholder-gray-500 placeholder:text-sm placeholder:tracking-wider" placeholder="Silakan bertanya di sini atau berikan komentar..."></textarea>
       </div>
@@ -106,6 +121,7 @@
       <div class="flex justify-end mb-8">
         <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Add</button>
       </div>
+      @endauth
     </div>
   </div>
 

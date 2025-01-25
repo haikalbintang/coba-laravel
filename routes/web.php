@@ -19,35 +19,27 @@ Route::get('/products', function () {
 // CREATE /product
 Route::view('/products/create', 'create')->name('products.create');
 
-// STORE /products
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-
 // SHOW /product/{product}
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
-
-// EDIT /product/{product}/edit
-Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-
-// UPDATE /product/{product}
-Route::put('/product/{product}', [ProductController::class, 'update'])->name('products.update');
-
-// DESTROY /product/{product}
-Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
-
-Route::put('/product/{product}/toggle-sold', function (Product $product) {
-    $product->toggleSold();
-    return redirect()->back()->with('success','Status barang berhasil diubah.');
-})->name('products.toggle-sold');
-
 
 // INDEX /chirps
 Route::get('/chirps', [ChirpController::class, 'index'])->name('chirps.index');
 
 
+Route::middleware(['auth'])->group(function () { 
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::put('/products/{product}/toggle-sold', function (Product $product) {
+        $product->toggleSold();
+        return redirect()->back()->with('success','Status barang berhasil diubah.');
+    })->name('products.toggle-sold');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::post('/chirps', [ChirpController::class, 'store'])->name('chirps.store');
+});
 
 
-
+Route::get('/my-products', [ProductController::class, 'myProducts'])->middleware('auth')->name('my-products');
 
 
 // GET /about

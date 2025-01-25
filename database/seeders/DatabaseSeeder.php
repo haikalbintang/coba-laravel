@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory()->create([
+            'name' => 'Haikal Bintang',
+            'email' => 'haikalbintang@email.com',
+        ]);
         $users = User::factory(5)->create();
 
         Product::factory(30)->create()->each(function (Product $product) use ($users) {
@@ -28,7 +32,10 @@ class DatabaseSeeder extends Seeder
         });
 
         Chirp::factory(10)->create()->each(function (Chirp $chirp) use ($users) {
-            $chirp->user()->associate($users->random());
+            $user = $users->random();
+            $chirp->user()->associate($user);
+            $chirp->created_at = fake()->dateTimeBetween($user->created_at, 'now');
+            $chirp->updated_at = fake()->dateTimeBetween($chirp->created_at, 'now');
             $chirp->save();
         });
     }
