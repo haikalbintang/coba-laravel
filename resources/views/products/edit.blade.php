@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-  @include('form', ['product' => $product])
+  @include('products.form', ['product' => $product])
 @endsection

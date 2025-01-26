@@ -45,16 +45,16 @@
           $currentStatus = request('status', '');
         @endphp
         <div class="tracking-wider">
-          <x-category1>Stok</x-category1>
-          <x-stock-list :stocks="$stocks" :current-stock="$currentStock"></x-stock-list>
+          <x-sidebar.category1>Stok</x-sidebar.category1>
+          <x-sidebar.stock-list :stocks="$stocks" :current-stock="$currentStock"></x-sidebar.stock-list>
   
-          <x-category1>Status</x-category1>
+          <x-sidebar.category1>Status</x-sidebar.category1>
           <x-sidebar.status-list :statuses="$statuses" :current-status="$currentStatus"></x-sidebar.status-list>
   
-          <x-category1>Gender</x-category1>
-          <x-gender-list :genders="$genders" :current-gender="$currentGender"></x-gender-list>
+          <x-sidebar.category1>Gender</x-sidebar.category1>
+          <x-sidebar.gender-list :genders="$genders" :current-gender="$currentGender"></x-sidebar.gender-list>
   
-          <x-category1>Kategori</x-category1>
+          <x-sidebar.category1>Kategori</x-sidebar.category1>
           <x-sidebar.category-list :categories="$categories" :current-category="$currentCategory"></x-sidebar.category-list>
         </div>
 

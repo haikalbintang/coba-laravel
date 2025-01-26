@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Toko Laravel</title>
-  @vite('resources/css/app.css')
-</head>
-<body class="antialiased max-w-[1200px] mx-auto bg-gray-900">
-  <x-navbar></x-navbar>
+@extends('layouts.store')
 
-  <x-header>About Toko Laravel</x-header>
+@section('title', 'Toko Laravel')
 
-  <p>Tempat jual beli barang bekas</p>
-</body>
-</html>
+@section('sidebar')
+  <x-sidebar></x-sidebar>
+@endsection
+
+@section('content')
+  @auth
+    <x-header>Halo, {{ auth()->user()->name }}!</x-header>
+  @endauth
+    <h2 class="text-xl text-white mx-2.5">Bingung barang bekas mau di kemanain? <br>dijual bingung siapa yang mau, dibuang sayang.. <br>Taruh aja di sini! caranya gampang, tinggal klik Jual atau Jual Barang kemudian isi field yang wajib diisi lalu submit, selesai deh. :D</h2>
+@endsection

@@ -2,10 +2,13 @@
 
     <div class="flex w-full justify-between">
       <ul class="flex space-x-4 p-3 text-white font-medium text-base items-center">
-        <li class="flex items-center"><a class="{{ request()->is('/') || request()->routeIs('products.show')? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/">Barang</a></li>
-        <li class="flex items-center"><a class="{{ request()->routeIs('profile.index') || request()->routeIs('profile.show') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/profiles">User</a></li>
-        <li class="flex items-center"><a class="{{ request()->is('about') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/use">About</a></li>
-        <li class="flex items-center"><a class="{{ request()->is('contact') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/contact">Contact</a></li>
+        <li class="flex items-center cursor-pointer {{ request()->is('/') ? 'bg-white rounded-full bg-opacity-25' : '' }}">
+          <a href="/"><x-navbar.home-icon :color="request()->is('/') ? '#9333ea' : '#fff'" /></a>
+        </li>
+        <li class="flex items-center"><a class="{{ request()->routeIs('products.index') || request()->routeIs('products.show') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/products">Barang</a></li>
+        <li class="flex items-center"><a class="{{ request()->routeIs('profile.index') || request()->routeIs('profile.show') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/profiles">Users</a></li>
+        <li class="flex items-center"><a class="{{ request()->is('about') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/welcome">Help</a></li>
+        <li class="flex items-center"><a class="{{ request()->is('contact') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md" href="/contact">Kontak</a></li>
         <li class="flex items-center"><a class="{{ request()->is('products/create') ? 'bg-purple-600 border-2 border-white' : 'bg-red-600 hover:bg-red-700' }} px-3 py-1 rounded-md border-2 border-green-400 flex ml-[70px]" href="/products/create">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="6" width="18" height="12" rx="2" stroke="{{ request()->is('products/create') ? '#fff' : '#4ade80' }}" stroke-width="2"/>

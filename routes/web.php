@@ -11,20 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-// INDEX /products
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products', function () {
-    return redirect(route('products.index'));
-});
+Route::get('/', [ProductController::class, 'home'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
-
-// CREATE /product
-Route::view('/products/create', 'create')->name('products.create');
-
-// SHOW /product/{product}
+Route::view('/products/create', 'products.create')->name('products.create');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
 
-// INDEX /chirps
+
 Route::get('/chirps', [ChirpController::class, 'index'])->name('chirps.index');
 
 
@@ -71,7 +64,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::fallback(function () {
-    return 'Sorry, wrong URLs.'; 
+    return 'Ups, sorry wrong URLs.'; 
 });
 
 

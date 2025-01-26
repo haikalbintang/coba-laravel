@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-  @include('form')
+  @include('products.form')
 @endsection

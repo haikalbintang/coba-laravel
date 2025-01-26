@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Chirp;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ProductRequest;
@@ -10,6 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    public function home()
+    {
+        $latestProducts = Product::latest()->take(3)->withCount('comments')->get();
+        $latestChirps = Chirp::latest()->whereNull('parent_id')->take(3)->get();
+        return view('home', [
+            'latestProducts' => $latestProducts,
+            'latestChirps' => $latestChirps
+        ]);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -63,7 +74,7 @@ class ProductController extends Controller
         $products = $products->withCount("comments")
             ->latest()
             ->paginate(12);
-        return view('home', [
+        return view('products.index', [
             'products' => $products,
         ]);
     }
@@ -93,7 +104,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load('comments');
-        return view('show', [
+        return view('products.show', [
             'product' => $product,
         ]);
     }
@@ -106,7 +117,7 @@ class ProductController extends Controller
         if ($product->user_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
-        return view('edit', [
+        return view('products.edit', [
             'product' => $product,
         ]);
     }

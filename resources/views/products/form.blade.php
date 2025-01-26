@@ -6,7 +6,7 @@
   @guest
     @if ( !isset($product) )
     <div x-show="flash" class="flex items-center bg-yellow-200 border border-yellow-400 text-yellow-700 px-4 py-2 rounded-md mt-4 w-fit">
-      <span class="font-bold mr-1.5">Warning! Log in </span> untuk menjual barang.
+      <span class="font-bold mr-1.5">Warning! Log in </span> untuk input barang.
       <div class="ml-6 text-yellow-700 cursor-pointer">
         <svg @click="flash = false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M18 6L6 18" stroke="#a16207" stroke-linecap="round" stroke-linejoin="round"/>
