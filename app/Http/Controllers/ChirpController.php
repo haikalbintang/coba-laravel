@@ -13,7 +13,7 @@ class ChirpController extends Controller
      */
     public function index()
     {
-        $chirps = Chirp::whereNull('parent_id')->with('replies', 'user')->latest()->paginate(10);
+        $chirps = Chirp::whereNull('parent_id')->with('replies', 'user')->latest()->paginate(7);
         return view('chirps.index', [
             'chirps' => $chirps,
         ]);

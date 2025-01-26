@@ -25,10 +25,15 @@ class DatabaseSeeder extends Seeder
         Product::factory(30)->create()->each(function (Product $product) use ($users) {
             $numComments = random_int(0, 4);
 
-            Comment::factory($numComments)->create([
-                'product_id' => $product->id,
-                'user_id' => $users->random()->id,
-            ]);
+            $usersForComments = $users->shuffle()->take($numComments);
+
+            foreach ($usersForComments as $user) {
+                Comment::factory()->create([
+                    'product_id' => $product->id,
+                    'user_id' => $user->id,
+                ]);
+            }
+
         });
 
         Chirp::factory(10)->create()->each(function (Chirp $chirp) use ($users) {

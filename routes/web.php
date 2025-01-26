@@ -4,6 +4,7 @@ use App\Models\Product;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\CommentController;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -37,9 +38,10 @@ Route::middleware(['auth'])->group(function () {
     })->name('products.toggle-sold');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::post('/chirps', [ChirpController::class, 'store'])->name('chirps.store');
-    
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
+Route::get('/profiles', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::get('/my-products', [ProductController::class, 'myProducts'])->middleware('auth')->name('my-products');

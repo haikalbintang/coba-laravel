@@ -15,40 +15,49 @@
             'kids' => 'Anak-anak',
           ];
           $currentGender = request('gender', '');
+          $categories = [
+            '' => 'Semua',
+            'tas' => 'Tas',
+            'baju' => 'Baju',
+            'celana' => 'Celana',
+            'rok' => 'Rok',
+            'sepatu' => 'Sepatu',
+            'topi' => 'Topi',
+            'kacamata' => 'Kacamata',
+            'handphone' => 'Handphone',
+            'televisi' => 'Televisi',
+            'monitor' => 'Monitor',
+            'laptop' => 'Laptop',
+            'keyboard' => 'Keyboard',
+            'mouse' => 'Mouse',
+            'kursi' => 'Kursi',
+            'sofa' => 'Sofa',
+            'kasur' => 'Kasur',
+            'meja' => 'Meja',
+            'lainnya' => 'Lainnya',
+          ];
+          $currentCategory = request('category', '');
+          $statuses = [
+            '' => 'Semua',
+            'baru' => 'Baru',
+            'bekas' => 'Bekas',
+          ];
+          $currentStatus = request('status', '');
         @endphp
-        <x-category1>Stok</x-category1>
-        <x-stock-list :stocks="$stocks" :current-stock="$currentStock"></x-stock-list>
-        {{-- <x-category1>Status</x-category1>
-        <div class="text-gray-200 pl-4">
-          <x-category2><a href="{{ route('products.index', ['status' => 'baru']) }}" class="{{ request('status') == 'baru' ? 'text-white font-bold' : '' }}">Baru</a></x-category2>
-          <x-category2><a href="{{ route('products.index', ['status' => 'bekas']) }}" class="{{ request('status') == 'bekas' ? 'text-white font-bold' : '' }}">Bekas</a></x-category2>
-        </div> --}}
-        <x-category1>Gender</x-category1>
-        <x-gender-list :genders="$genders" :current-gender="$currentGender"></x-gender-list>
-        <h2 class="text-lg pt-2">Kategori</h2>
-        <div class="text-gray-200 pl-4">
-          <p>Tas</p>
-          <p>Baju</p>
-          <p>Celana</p>
-          <p>Rok</p>
-          <p>Sepatu</p>
-          <p>Topi</p>
-          <p>Kacamata</p>
-          <p>Handphone</p>
-          <p>Televisi</p>
-          <p>Monitor</p>
-          <p>Laptop</p>
-          <p>Keyboard</p>
-          <p>Mouse</p>
-          <p>Kursi</p>
-          <p>Sofa</p>
-          <p>Kasur</p>
+        <div class="tracking-wider">
+          <x-category1>Stok</x-category1>
+          <x-stock-list :stocks="$stocks" :current-stock="$currentStock"></x-stock-list>
+  
+          <x-category1>Status</x-category1>
+          <x-sidebar.status-list :statuses="$statuses" :current-status="$currentStatus"></x-sidebar.status-list>
+  
+          <x-category1>Gender</x-category1>
+          <x-gender-list :genders="$genders" :current-gender="$currentGender"></x-gender-list>
+  
+          <x-category1>Kategori</x-category1>
+          <x-sidebar.category-list :categories="$categories" :current-category="$currentCategory"></x-sidebar.category-list>
         </div>
-        <h2 class="text-lg pt-2">Kategori</h2>
-        <div class="text-gray-100 pl-4">
-          <p>Baru</p>
-          <p>Bekas</p>
-        </div>
+
         <p class="pt-32 text-base text-gray-100"><span class="text-red-500 text-lg font-semibold">WA</span><span class="text-purple-500 text-lg"></span> +6287877901515</p>
         <p class="pt-2 pb-8 text-base text-gray-100"><span class="text-red-500 text-lg font-semibold">Lokasi</span><span class="text-purple-500 text-lg"></span> Jl. KH Abdurrahman No. 15, RT 01/01, Pondok Jaya, Cipayung, Depok</p>
 

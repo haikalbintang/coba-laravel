@@ -27,6 +27,8 @@ class ProductFactory extends Factory
             "image" => $faker->imageUrl(200, 200),
             "is_sold" => $faker->randomElement([true, false]),
             "gender" => $faker->randomElement(['male', 'female', 'kids','unisex', '']),
+            "category" => $faker->randomElement(['tas', 'baju', 'celana', 'rok', 'sepatu', 'topi', 'kacamata', 'handphone', 'televisi', 'monitor', 'laptop', 'keyboard', 'mouse', 'kursi', 'sofa', 'kasur', 'meja', 'lainnya']),
+            'status' => $faker->randomElement(['baru', 'bekas']),
             "user_id" => User::inRandomOrder()->first()->id,
             "created_at" => $createdAt,
             "updated_at" => $faker->dateTimeBetween($createdAt, 'now'),

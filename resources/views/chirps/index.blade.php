@@ -53,7 +53,7 @@
           <img class="w-[80px] h-[80px] mt-2.5 rounded-full p-1 bg-gray-900" src="https://picsum.photos/180/180/?random={{ Auth::id() }}" alt="">
         </form>
         @else
-        <div class="ml-10 mt-4 p-2.5 rounded-lg bg-gray-800">
+        <div class="ml-2 mb-2 pb-2 text-center rounded-lg bg-gray-800">
           <p class="text-white">Login untuk berbagi kebutuhan atau komentar.</p>
         </div>
         @endauth

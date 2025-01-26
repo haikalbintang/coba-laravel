@@ -18,7 +18,9 @@ return new class extends Migration
             $table->integer('price');
             $table->string('image');
             $table->boolean('is_sold')->default(false);
+            $table->enum('status', ['baru', 'bekas'])->nullable();
             $table->enum('gender', ['male', 'female', 'kids','unisex', null])->nullable();
+            $table->enum('category', ['tas', 'baju', 'celana', 'rok', 'sepatu', 'topi', 'kacamata', 'handphone', 'televisi', 'monitor', 'laptop', 'keyboard', 'mouse', 'kursi', 'sofa', 'kasur', 'meja', 'lainnya'])->nullable();
             $table->foreignId('user_id')->default(1)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -10,7 +10,7 @@
   @auth
     <x-header>Halo, {{ auth()->user()->name }}!</x-header>
   @endauth
-  <x-header><span class="text-2xl text-gray-100">Welcome to</span> <span class="font-bold text-3xl">Toko Laravel</span>! <span class="text-2xl text-gray-100">Tempat jual beli barang bekas.</span></x-header>
+  <x-header><span class="text-2xl text-gray-100">Welcome to</span> <span class="font-bold text-3xl">Toko Laravel</span>! <span class="text-2xl text-gray-100">Platform jual beli barang bekas.</span></x-header>
 
   <div class="flex justify-between mx-2.5 mb-6 mt-3">
     <a href="/products/create" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded text-base">+ Jual Barang</a>

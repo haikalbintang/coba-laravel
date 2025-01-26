@@ -22,7 +22,8 @@ class ChirpFactory extends Factory
         $faker = Faker::create('id_ID');
         $createdAt = $faker->dateTimeBetween('-1 month', 'now');
         return [
-            'user_id' => User::factory(),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'parent_id' => null,
             'text' => $faker->text(255),
             'created_at' => $createdAt,
             'updated_at' => $faker->dateTimeBetween($createdAt, 'now'),

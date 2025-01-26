@@ -18,6 +18,9 @@ class ProductController extends Controller
         $name = $request->input("name");
         $stock = $request->input("stock");
         $gender = $request->input("gender");
+        $status = $request->input("status");
+        $category = $request->input("category");
+
         $products = Product::when($name, fn ($query, $name) => $query->name($name));
         $products = match ($stock) {
             'available' => $products->onStock(),
@@ -29,6 +32,32 @@ class ProductController extends Controller
             'female' => $products->female(),
             'kids' => $products->kids(),
             'unisex' => $products->unisex(),
+            default => $products,
+        };
+        $products = match ($status) {
+            'baru' => $products->new(),
+            'bekas' => $products->used(),
+            default => $products,
+        };
+        $products = match ($category) {
+            'tas' => $products->tas(),
+            'baju' => $products->baju(),
+            'celana' => $products->celana(),
+            'rok' => $products->rok(),
+            'sepatu' => $products->sepatu(),
+            'topi' => $products->topi(),
+            'kacamata' => $products->kacamata(),
+            'handphone' => $products->handphone(),
+            'televisi' => $products->televisi(),
+            'monitor' => $products->monitor(),
+            'laptop' => $products->laptop(),
+            'keyboard' => $products->keyboard(),
+            'mouse' => $products->mouse(),
+            'kursi' => $products->kursi(),
+            'sofa' => $products->sofa(),
+            'kasur' => $products->kasur(),
+            'meja' => $products->meja(),
+            'lainnya' => $products->lainnya(),
             default => $products,
         };
         $products = $products->withCount("comments")

@@ -24,17 +24,20 @@
   <div class="flex flex-col items-center justify-center space-y-5 bg-gray-800 rounded-lg mx-2 p-4 mb-2">
     <div class="flex flex-col items-center justify-center space-y-2">
       <h1 class="text-3xl text-white font-bold">{{ $user->name }}</h1>
-      <p class="text-sm text-gray-400">Member since {{ $user->created_at->diffForHumans() }}</p>
+      <p class="text-base text-gray-400">Member since {{ $user->created_at->diffForHumans() }}</p>
     </div>
     <img class="w-44 h-44 rounded-full p-2 bg-white" src="https://picsum.photos/180/180/?random={{ $user->id }}" alt="{{ $user->name }}">
     <div class="p-4 bg-gray-900 rounded-lg text-lg space-y-2 flex flex-col items-center justify-center">
       <p>Email: {{ $user->email }}</p>
       <p>WA: 087877901515</p>
     </div>
+    <div class="p-4 bg-gray-900 rounded-lg text-lg space-y-2 flex flex-col items-center justify-center w-full">
+      Bio or Description
+    </div>
   </div>
 
-  <x-header>{{ Auth::id() == $user->id ? 'Barang-barang ku' : 'Barang '. $user->name }}</x-header>
-  <div class="grid grid-cols-3 gap-3">
+  <x-header>{{ Auth::id() == $user->id ? 'Barang-barang ku' : 'Barang Jualan '. $user->name }}</x-header>
+  <div class="grid grid-cols-3 gap-3 mb-4">
 
     @forelse ( $products as $product )
       <div class="m-2 p-4 flex flex-col bg-gray-800 rounded-lg">
@@ -56,6 +59,11 @@
     </div>
     @endforelse
   </div>
+  @if ($products->count() > 0)
+  <div class="p-2 mb-4">
+    {{ $products->links() }}
+  </div>
+@endif
 
   
 @endsection

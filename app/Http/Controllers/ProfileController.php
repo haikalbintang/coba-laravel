@@ -13,9 +13,16 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function index(Request $request)
+    {
+        $name = $request->input("name");
+        $users = User::when($name, fn ($query, $name) => $query->name($name))->paginate(10);
+        return view("profile.index", ["users"=> $users]);
+    }
+
     public function show(User $user)
     {
-        $products = Product::where('user_id', $user->id)->get();
+        $products = Product::where('user_id', $user->id)->withCount('comments')->latest()->paginate(3);
         return view("profile.show", ["user"=> $user, "products" => $products]);
     }
 

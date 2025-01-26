@@ -71,8 +71,11 @@
         </div>
 
         <div class="bg-gray-900 p-4">
-          <p class="text-lg font-bold">Kontak Penjual</p>
-          <p class="text-sm text-gray-400">Email: {{ $product->user->email }}</p>
+          <div class="flex items-center justify-between">
+            <p class="text-lg font-bold">Kontak Penjual</p>
+            <p><a class="text-purple-500 hover:underline"href="{{ route('profile.show', ['user' => $product->user]) }}">lihat profile &raquo;</a></p>
+          </div>
+          <p class="text-sm text-gray-400 mt-4">Email: {{ $product->user->email }}</p>
           <p class="text-sm text-gray-400">No. Telp: +6287877901515</p>
           <p class="text-sm text-gray-400 mt-4">Kontak Admin: +6287877901515</p>
           <p class="text-sm text-gray-400">Alamat kantor: Jl. KH Abdurrahman No. 15, RT 01/01, Pondok Jaya, Cipayung, Depok</p>
@@ -117,14 +120,29 @@
   @endguest
       
       @auth
-      <div class="bg-gray-800 p-3 pl-5 mb-2 rounded-lg flex items-center space-x-4">
-        <img class="w-[70px] h-[70px] rounded-full p-1 bg-gray-900" src="https://picsum.photos/180/180/?random=99" alt="">
-        <textarea name="comment" id="" rows="3" class="shadow-sm appearance-none border text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full bg-gray-200 p-2.5 rounded-lg placeholder-gray-500 placeholder:text-sm placeholder:tracking-wider" placeholder="Silakan bertanya di sini atau berikan komentar..."></textarea>
-      </div>
-    
-      <div class="flex justify-end mb-8">
-        <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Add</button>
-      </div>
+      <form action="{{ route('comments.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="product_id" value="{{ (int)$product->id }}">
+        <div class="bg-gray-800 p-3 pl-5 mb-2 rounded-lg flex items-center space-x-4">
+            <img class="w-[70px] h-[70px] rounded-full p-1 bg-gray-900" src="https://picsum.photos/180/180/?random=99" alt="">
+            <textarea 
+                name="text" 
+                rows="3" 
+                class="shadow-sm appearance-none border text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full bg-gray-200 p-2.5 rounded-lg placeholder-gray-500 placeholder:text-sm placeholder:tracking-wider" 
+                placeholder="Silakan bertanya di sini atau berikan komentar..."
+                required
+            ></textarea>
+        </div>
+        
+        <div class="flex justify-end mb-8">
+            <button 
+                type="submit" 
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Add
+            </button>
+        </div>
+      </form>
       @endauth
     </div>
   </div>
