@@ -34,7 +34,7 @@
         <p class="text-base p-2 text-gray-200">{{ Str::limit($product->description, 55) }} <span class="text-purple-500 hover:underline"><a href={{ route('products.show', ['product' => $product->id]) }}>lihat detail &raquo;</a></span></p>
         <h3 class="mt-auto text-2xl font-bold p-2 text-white text-right">Rp {{ number_format($product->price, 0, ',', '.') }}</h3>
         <div class="flex justify-between items-center px-2">
-          <p @class(['text-green-600' => !$product->is_sold, 'text-gray-400' => $product->is_sold])>{{ $product->is_sold ? 'Sudah Terjual' : 'Stok Tersedia' }}</p>
+          <p @class(['text-gray-300' => !$product->is_sold, 'text-gray-400' => $product->is_sold])>{{ $product->is_sold ? 'Sudah Terjual' : 'Tersedia' }}</p>
           <div class="flex items-center space-x-1.5">
             <x-comment-icon></x-comment-icon>
             <p>{{ $product->comments_count }}</p>

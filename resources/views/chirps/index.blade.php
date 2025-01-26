@@ -24,11 +24,13 @@
   
   <main class="mx-2 mt-3">
     @auth
+    <div class="border border-gray-700 p-4 rounded-lg mb-4">
       <form action="{{ route('chirps.store') }}" method="POST">
         @csrf
-        <textarea class="w-full p-2.5 rounded-lg bg-gray-800 text-white" name="text" placeholder="Berbagi kebutuhanmu..." rows="3"></textarea>
-        <button class="mt-2 mb-4 w-full p-2.5 rounded-lg bg-purple-500 hover:bg-purple-600 text-white" type="submit">Kirim</button>
+        <textarea class="w-full p-2.5 rounded-lg bg-gray-800 text-white" name="text" placeholder="Ada yang jual laptop bekas? Dicari laptop dengan harga di bawah 2 juta." rows="3"></textarea>
+        <button class="mt-2 w-full p-2.5 rounded-lg bg-purple-500 hover:bg-purple-600 text-white" type="submit">Kirim</button>
       </form>
+    </div>
     @endauth
 
     @forelse ( $chirps as $chirp )

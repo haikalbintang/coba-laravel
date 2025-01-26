@@ -39,16 +39,20 @@
 
   <div class="bg-gray-800 p-4 rounded-lg flex mb-4">
     <img class="w-1/2 h-auto" src="https://picsum.photos/180/180/?random={{ $product->id }}" alt="{{ $product->name }}">
-    <div class="w-1/2 bg-gray-900 p-4 ml-4 text-lg flex flex-col">
+    <div class="w-1/2 bg-gray-900 p-4 ml-4 text-base flex flex-col space-y-2">
       <p>Deskripsi: {{ $product->description }}</p>
-      <p>Harga: Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-      <p>Status: {{ $product->is_sold ? 'Sudah Terjual' : 'Belum Terjual' }}</p>
-      <div class="mt-auto flex space-x-4">
-        <p class="mt-auto text-gray-400 text-sm">Dipost {{ $product->created_at->diffForHumans() }}</p>
-        @if ($product->created_at != $product->updated_at)
-          <p class="text-gray-400 text-sm">⦁</p>
-          <p class="text-gray-400 text-sm">Diedit {{ $product->updated_at->diffForHumans() }}</p>
-        @endif
+      <div class="h-full"></div>
+      <p class="text-right">Harga: <span class="text-xl font-bold">Rp{{ number_format($product->price, 0, ',', '.') }}</span> (bisa nego)</p>
+      <x-tag-list :product="$product"></x-tag-list>
+      <div class="mt-auto flex justify-between items-center">
+        <div class="flex space-x-3">
+          <p class="text-gray-400 text-xs">Dipost {{ $product->created_at->diffForHumans() }}</p>
+          @if ($product->created_at != $product->updated_at)
+            <p class="text-gray-400 text-xs">⦁</p>
+            <p class="text-gray-400 text-xs">Diedit {{ $product->updated_at->diffForHumans() }}</p>
+          @endif
+        </div>
+        <p class="text-sm">Status: {{ $product->is_sold ? 'Sudah Terjual' : 'Tersedia' }}</p>
       </div>
     </div>
   </div>
@@ -79,7 +83,7 @@
     <div class="col-span-3">
       <x-header>Komentar:</x-header>
     
-      <div class="bg-gray-800 p-3 space-y-3 mb-8 rounded">
+      <div class="bg-gray-800 p-3 space-y-3 mb-8 rounded-lg">
         @forelse ($product->comments as $comment)
           <div class="bg-gray-900 p-4 flex space-x-4">
             <img class="w-[70px] h-[70px] rounded-full p-1 bg-gray-800" src="https://picsum.photos/180/180/?random={{ $comment->user_id }}" alt="">
@@ -88,7 +92,7 @@
               <p>{{ $comment->text }}</p>
               <div class="flex space-x-2 items-center">
     
-                <p class="text-gray-400 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
+                <p class="text-gray-400 text-sm">{{ $comment->created_at->diffForHumans('') }}</p>
                 @if ($comment->created_at != $comment->updated_at)
                   <p class="text-gray-400 text-sm">[Edited]</p>
                 @endif

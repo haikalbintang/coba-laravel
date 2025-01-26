@@ -18,7 +18,8 @@ class Product extends Model
         'description',
         'price',
         'image',
-        'user_id'
+        'user_id',
+        'gender'
     ];
 
     // protected $guarded = ['id'];
@@ -66,5 +67,25 @@ class Product extends Model
     public function scopeOffStock(Builder $query): Builder|QueryBuilder
     {
         return $query->where('is_sold', true);
+    }
+
+    public function scopeMale(Builder $query): Builder|QueryBuilder
+    {
+        return $query->where('gender', 'male');
+    }
+
+    public function scopeFemale(Builder $query): Builder|QueryBuilder
+    {
+        return $query->where('gender', 'female');
+    }
+
+    public function scopeUnisex(Builder $query): Builder|QueryBuilder
+    {
+        return $query->where('gender', 'unisex');
+    }
+
+    public function scopeKids(Builder $query): Builder|QueryBuilder
+    {
+        return $query->where('gender', 'kids');
     }
 }

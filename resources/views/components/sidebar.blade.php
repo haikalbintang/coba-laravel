@@ -7,6 +7,14 @@
             'sold' => 'Terjual'
       ];
           $currentStock = request('stock', '');
+          $genders = [
+            '' => 'Semua',
+            'male' => 'Pria',
+            'female' => 'Wanita',
+            'unisex' => 'Unisex',
+            'kids' => 'Anak-anak',
+          ];
+          $currentGender = request('gender', '');
         @endphp
         <x-category1>Stok</x-category1>
         <x-stock-list :stocks="$stocks" :current-stock="$currentStock"></x-stock-list>
@@ -15,12 +23,8 @@
           <x-category2><a href="{{ route('products.index', ['status' => 'baru']) }}" class="{{ request('status') == 'baru' ? 'text-white font-bold' : '' }}">Baru</a></x-category2>
           <x-category2><a href="{{ route('products.index', ['status' => 'bekas']) }}" class="{{ request('status') == 'bekas' ? 'text-white font-bold' : '' }}">Bekas</a></x-category2>
         </div> --}}
-        <h2 class="text-lg pt-2"><span class="text-gray-700 text-2xl">#</span> Gender</h2>
-        <div class="text-gray-200 pl-4">
-          <p><span class="text-gray-700 text-xl">#</span> Pria</p>
-          <p><span class="text-gray-700 text-xl">#</span> Wanita</p>
-          <p><span class="text-gray-700 text-xl">#</span> Unisex</p>
-        </div>
+        <x-category1>Gender</x-category1>
+        <x-gender-list :genders="$genders" :current-gender="$currentGender"></x-gender-list>
         <h2 class="text-lg pt-2">Kategori</h2>
         <div class="text-gray-200 pl-4">
           <p>Tas</p>

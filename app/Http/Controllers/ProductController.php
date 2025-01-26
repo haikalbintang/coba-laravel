@@ -17,10 +17,18 @@ class ProductController extends Controller
     {
         $name = $request->input("name");
         $stock = $request->input("stock");
+        $gender = $request->input("gender");
         $products = Product::when($name, fn ($query, $name) => $query->name($name));
         $products = match ($stock) {
             'available' => $products->onStock(),
             'sold' => $products->offStock(),
+            default => $products,
+        };
+        $products = match ($gender) {
+            'male' => $products->male(),
+            'female' => $products->female(),
+            'kids' => $products->kids(),
+            'unisex' => $products->unisex(),
             default => $products,
         };
         $products = $products->withCount("comments")

@@ -16,6 +16,7 @@ Route::get('/products', function () {
     return redirect(route('products.index'));
 });
 
+
 // CREATE /product
 Route::view('/products/create', 'create')->name('products.create');
 
@@ -36,8 +37,10 @@ Route::middleware(['auth'])->group(function () {
     })->name('products.toggle-sold');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::post('/chirps', [ChirpController::class, 'store'])->name('chirps.store');
+    
 });
 
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::get('/my-products', [ProductController::class, 'myProducts'])->middleware('auth')->name('my-products');
 

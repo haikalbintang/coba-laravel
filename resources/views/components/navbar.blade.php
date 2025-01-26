@@ -35,10 +35,16 @@
         </a>
         @endguest
         @auth
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" type="submit">Logout</button>
-            </form>
+          <div x-data="{ open: false }" class="relative">
+            <img @click="open = !open" class="w-10 h-10 p-0.5 bg-white rounded-full cursor-pointer" src="https://picsum.photos/180/180/?random={{ Auth::user()->id }}" alt="">
+            <div x-show="open" class="absolute -right-3 top-14 bg-red-500 p-2 space-y-3 rounded-lg">
+              <a href="{{ route('profile.show', Auth::user()) }}" class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" >Profile</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <button class="rounded-md px-3 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" type="submit">Logout</button>
+              </form>
+            </div>
+          </div>
         @endauth
       </div>
     </div>
