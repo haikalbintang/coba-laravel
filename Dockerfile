@@ -27,9 +27,6 @@ RUN composer install --no-dev --optimize-autoloader
 # Copy the application
 COPY . .
 
-# Copy .env file
-COPY .env.production .env
-
 # Generate application key
 RUN php artisan key:generate
 
