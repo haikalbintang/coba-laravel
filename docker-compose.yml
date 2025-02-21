@@ -7,6 +7,9 @@ services:
         container_name: laravel_app
         restart: unless-stopped
         working_dir: /var/www/html
+        command: php-fpm
+        expose:
+            - "9000"
         volumes:
             - .:/var/www/html
         depends_on:
