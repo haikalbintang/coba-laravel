@@ -9,6 +9,16 @@ use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+
+Route::get('/test-db', function () {
+    try {
+        DB::connection()->getPdo();
+        return 'Koneksi database berhasil!';
+    } catch (\Exception $e) {
+        return 'Koneksi database gagal: ' . $e->getMessage();
+    }
+});
 
 
 Route::get('/nginx-log', function () {
