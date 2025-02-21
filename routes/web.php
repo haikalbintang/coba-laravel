@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/nginx-log', function () {
+    $logPath = storage_path('logs/nginx_error.log');
+    if (file_exists($logPath)) {
+        return response()->file($logPath);
+    } else {
+        return 'Log Nginx tidak ditemukan.';
+    }
+});
+
 Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
