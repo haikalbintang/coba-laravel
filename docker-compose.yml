@@ -10,8 +10,6 @@ services:
         command: php-fpm
         expose:
             - "9000"
-        volumes:
-            - .:/var/www/html
         depends_on:
             - mysql
         networks:
@@ -32,26 +30,26 @@ services:
             - laravel-network
 
     # Database MariaDB/MySQL
-    mysql:
-        image: mariadb:10.8.3
-        container_name: mysql
-        restart: unless-stopped
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: railway
-        ports:
-            - "3307:3306"
-        networks:
-            - laravel-network
+    # mysql:
+    #     image: mariadb:10.8.3
+    #     container_name: mysql
+    #     restart: unless-stopped
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: root
+    #         MYSQL_DATABASE: railway
+    #     ports:
+    #         - "3307:3306"
+    #     networks:
+    #         - laravel-network
 
     # Adminer untuk melihat database dengan UI
-    adminer:
-        image: adminer
-        restart: unless-stopped
-        ports:
-            - "8080:8080"
-        networks:
-            - laravel-network
+    # adminer:
+    #     image: adminer
+    #     restart: unless-stopped
+    #     ports:
+    #         - "8080:8080"
+    #     networks:
+    #         - laravel-network
 
 networks:
     laravel-network:
